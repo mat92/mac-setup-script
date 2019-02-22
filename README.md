@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/pathikrit/mac-setup-script.svg?branch=master)](https://travis-ci.org/pathikrit/mac-setup-script)
+[![Build Status](https://travis-ci.org/mat92/mac-setup-script.svg?branch=master)](https://travis-ci.org/pathikrit/mac-setup-script)
 
 Dead simple script to setup my new Mac:
 ```shell
