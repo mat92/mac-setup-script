@@ -13,6 +13,9 @@ fi
 # Disable the sound effects on boot
 #sudo nvram SystemAudioVolume=" "
 
+# Install XCode Command Line Tools
+xcode-select --install
+
 # Close any open System Preferences panes, to prevent them from overriding settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
