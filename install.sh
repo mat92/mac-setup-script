@@ -38,43 +38,38 @@ brews=(
 )
 
 casks=(
-  adobe-acrobat-pro
-  airdroid
-  android-platform-tools
-  cakebrew
-  cleanmymac
+  alfred
+  avast-security
+  appcleaner
+  balenaetcher
+  cheatsheet
+  dashlane
   docker
+  dropbox
+  gimp
+  gitkraken
+  google-chrome
   firefox
-  geekbench
-  google-backup-and-sync
-  github
   handbrake
-  iina
-  istat-server  
-  launchrocket
-  kap-beta
-  qlcolorcode
-  qlmarkdown
-  qlstephen
-  quicklook-json
-  quicklook-csv
-  macdown
-  microsoft-office
-  muzzle
-  neofetch
-  path-finder
-  plex-media-player
-  plex-media-server
-  private-eye
-  satellite-eyes
-  sidekick
+  intellij-idea
+  itsycal
+  libreoffice
+  nordvpn
+  onyx
+  oversight
+  postman
   skype
   slack
-  sloth
+  spectacle
+  spotify
   steam
-  transmission
-  transmission-remote-gui
-  tunnelbear
+  teamviewer
+  telegram
+  the-unarchiver
+  tor-browser
+  virtualbox
+  visual-studio-code
+  vlc
   xquartz
 )
 
@@ -183,11 +178,11 @@ fi
 prompt "Install software"
 install 'brew cask install' "${casks[@]}"
 
-prompt "Install secondary packages"
-install 'pip3 install --upgrade' "${pips[@]}"
-install 'gem install' "${gems[@]}"
-install 'npm install --global' "${npms[@]}"
-install 'code --install-extension' "${vscode[@]}"
+#prompt "Install secondary packages"
+#install 'pip3 install --upgrade' "${pips[@]}"
+#install 'gem install' "${gems[@]}"
+#install 'npm install --global' "${npms[@]}"
+#install 'code --install-extension' "${vscode[@]}"
 brew tap caskroom/fonts
 install 'brew cask install' "${fonts[@]}"
 
@@ -195,7 +190,6 @@ prompt "Install oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 prompt "Update packages"
-pip3 install --upgrade pip setuptools wheel
 m update install all
 
 if [[ -z "${CI}" ]]; then
