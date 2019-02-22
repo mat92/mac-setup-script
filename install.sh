@@ -70,6 +70,7 @@ casks=(
   virtualbox
   visual-studio-code
   vlc
+  whatsapp
   xquartz
 )
 
