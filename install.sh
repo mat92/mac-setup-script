@@ -2,74 +2,39 @@
 
 # Install some stuff before others!
 important_casks=(
-  dropbox
-  #google-chrome
-  hyper
-  jetbrains-toolbox
-  istat-menus
-  spotify
-  franz
-  visual-studio-code
-  java8
+  adoptopenjdk
+  corretto
 )
 
 brews=(
   awscli
-  "bash-snippets --without-all-tools --with-cryptocurrency --with-stocks --with-weather"
-  #cheat
-  coreutils
-  dfc
-  findutils
-  "fontconfig --universal"
-  fpp
+  brew-cask-completion
+  cocoapods
+  fontconfig
   git
-  git-extras
-  git-fresh
-  git-lfs
-  "gnuplot --with-qt"
-  "gnu-sed --with-default-names"
-  go
+  gnu-sed
   gpg
-  haskell-stack
-  hh
-  #hosts
+  gradle
   htop
-  httpie
-  iftop
-  "imagemagick --with-webp"
-  lighttpd
-  lnav
+  jenv
+  kotlin
+  maven
   m-cli
   mackup
-  macvim
   mas
-  micro
-  moreutils
-  mtr
-  ncdu
-  nmap
   node
-  poppler
-  postgresql
-  pgcli
-  pv
+  ntfs-3g
+  openssl
   python
-  python3
-  osquery
+  python@2
   ruby
-  scala
-  sbt
   shellcheck
-  stormssh
-  teleport
-  thefuck
-  tmux
   tree
   trash
-  "vim --with-override-system-vi"
-  #volumemixer
-  "wget --with-iri"
-  xsv
+  unrar
+  vim
+  wget
+  zsh
 )
 
 casks=(
@@ -113,54 +78,20 @@ casks=(
   xquartz
 )
 
-pips=(
-  pip
-  glances
-  ohmu
-  pythonpy
-)
+pips=()
 
-gems=(
-  bundler
-  travis
-)
+gems=()
 
-npms=(
-  fenix-cli
-  gitjk
-  kill-tabs
-  n
-)
+npms=()
 
-gpg_key='3E219504'
-git_email='pathikritbhowmick@msn.com'
+#gpg_key='3E219504'
+git_email='webhofer.m@gmail.com'
 git_configs=(
-  "branch.autoSetupRebase always"
-  "color.ui auto"
-  "core.autocrlf input"
-  "credential.helper osxkeychain"
-  "merge.ff false"
-  "pull.rebase true"
-  "push.default simple"
-  "rebase.autostash true"
-  "rerere.autoUpdate true"
-  "rerere.enabled true"
-  "user.name pathikrit"
-  "user.email ${git_email}"
-  "user.signingkey ${gpg_key}"
+  "user.email=webhofer.m@gmail.com"
+  "user.name=Matthias Webhofer"
 )
 
-vscode=(
-  rust-lang.rust
-  dragos.scala-lsp
-  lightbend.vscode-sbt-scala
-  alanz.vscode-hie-server
-  rebornix.Ruby
-  redhat.java
-  rust-lang.rust
-  scala-lang.scala
-  scalameta.scala
-)
+vscode=()
 
 fonts=(
   font-fira-code
@@ -242,7 +173,7 @@ do
 done
 
 if [[ -z "${CI}" ]]; then
-  gpg --keyserver hkp://pgp.mit.edu --recv ${gpg_key}
+ # gpg --keyserver hkp://pgp.mit.edu --recv ${gpg_key}
   prompt "Export key to Github"
   ssh-keygen -t rsa -b 4096 -C ${git_email}
   pbcopy < ~/.ssh/id_rsa.pub
@@ -260,13 +191,8 @@ install 'code --install-extension' "${vscode[@]}"
 brew tap caskroom/fonts
 install 'brew cask install' "${fonts[@]}"
 
-prompt "Upgrade bash"
-brew install bash bash-completion2 fzf
-sudo bash -c "echo $(brew --prefix)/bin/bash >> /private/etc/shells"
-sudo chsh -s "$(brew --prefix)"/bin/bash
-# Install https://github.com/twolfson/sexy-bash-prompt
-touch ~/.bash_profile #see https://github.com/twolfson/sexy-bash-prompt/issues/51
-(cd /tmp && git clone --depth 1 --config core.autocrlf=false https://github.com/twolfson/sexy-bash-prompt && cd sexy-bash-prompt && make install) && source ~/.bashrc
+prompt "Install oh-my-zsh"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 prompt "Update packages"
 pip3 install --upgrade pip setuptools wheel
