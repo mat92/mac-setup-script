@@ -14,7 +14,6 @@ brews=(
   gnupg
   gnutls
   gradle
-  homeshick
   htop
   jenv
   kotlin
@@ -97,8 +96,8 @@ npms=()
 #gpg_key='3E219504'
 git_email='webhofer.m@gmail.com'
 git_configs=(
-  "user.email=webhofer.m@gmail.com"
-  "user.name=Matthias Webhofer"
+  "user.email webhofer.m@gmail.com"
+  "user.name 'Matthias Webhofer'"
 )
 
 vscode=()
@@ -202,9 +201,10 @@ prompt "Install zplug"
 sudo chsh -s $(which zsh)
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 
-prompt "Install homeshick"
-git clone git://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
-prompt "See homeshick github wiki for more information on how to link the repo (TODO: automate)"
+prompt "Configure mackup"
+echo "[storage]
+engine = icloud" > ~/.mackup.cfg
+mackup restore
 
 prompt "Install software"
 install 'brew cask install' "${casks[@]}"
