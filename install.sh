@@ -9,7 +9,6 @@ brews=(
   bash
   brew-cask-completion
   cloc
-  cocoapods
   git
   gnu-sed
   gnupg
