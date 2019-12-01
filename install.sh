@@ -2,62 +2,77 @@
 
 # Install some stuff before others!
 important_casks=(
-  adoptopenjdk
-  corretto
 )
 
 brews=(
   awscli
+  bash
   brew-cask-completion
+  cloc
   cocoapods
-  fontconfig
   git
   gnu-sed
-  gpg
+  gnupg
+  gnutls
   gradle
+  homeshick
   htop
   jenv
   kotlin
-  maven
   m-cli
   mackup
   mas
+  maven
+  md5sha1sum
   node
-  ntfs-3g
   openssl
+  openssl@1.1
+  perl
   python
   python@2
   ruby
   shellcheck
-  tree
+  sqlite
+  telegram-cli
   trash
+  tree
   unrar
   vim
   wget
+  xz
+  yarn
   zsh
+  zsh-syntax-highlighting
 )
 
 casks=(
   alfred
-  avast-security
   appcleaner
+  avast-security
   balenaetcher
   cheatsheet
   dashlane
   docker
   dropbox
+  firefox
+  font-fira-code
+  font-source-code-pro
   gimp
   gitkraken
   google-chrome
-  firefox
+  gpg-suite
   handbrake
   intellij-idea
   itsycal
+  jdownloader
   libreoffice
+  near-lock
   nordvpn
   onyx
   oversight
   postman
+  signal
+  silverlight
   skype
   slack
   spectacle
@@ -93,6 +108,8 @@ fonts=(
   font-fira-code
   font-source-code-pro
 )
+
+JDK_VERSION=openjdk@1.13.0-1
 
 ######################################## End of app list ########################################
 set +e
@@ -162,6 +179,12 @@ prompt "Install packages"
 install 'brew_install_or_upgrade' "${brews[@]}"
 brew link --overwrite ruby
 
+prompt "Install JDK=${JDK_VERSION}"
+curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh
+jabba install ${JDK_VERSION}
+jabba alias default ${JDK_VERSION}
+java -version
+
 prompt "Set git defaults"
 for config in "${git_configs[@]}"
 do
@@ -176,6 +199,14 @@ if [[ -z "${CI}" ]]; then
   open https://github.com/settings/ssh/new
 fi  
 
+prompt "Install zplug"
+sudo chsh -s $(which zsh)
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+
+prompt "Install homeshick"
+git clone git://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
+prompt "See homeshick github wiki for more information on how to link the repo (TODO: automate)"
+
 prompt "Install software"
 install 'brew cask install' "${casks[@]}"
 
@@ -186,12 +217,6 @@ install 'brew cask install' "${casks[@]}"
 #install 'code --install-extension' "${vscode[@]}"
 brew tap caskroom/fonts
 install 'brew cask install' "${fonts[@]}"
-
-prompt "Install oh-my-zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-prompt "Update packages"
-m update install all
 
 if [[ -z "${CI}" ]]; then
   prompt "Install software from App Store"
